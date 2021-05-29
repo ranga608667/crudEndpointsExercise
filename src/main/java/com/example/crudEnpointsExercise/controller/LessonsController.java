@@ -2,10 +2,7 @@ package com.example.crudEnpointsExercise.controller;
 
 import com.example.crudEnpointsExercise.domain.Lessons;
 import com.example.crudEnpointsExercise.repository.LessonsRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,6 +22,11 @@ public class LessonsController {
     @DeleteMapping("/lessons/{id}")
     public void deleteById(@PathVariable int id){
         this.lessonsRepository.deleteById(id);
+    }
+
+    @PostMapping("/lessons")
+    public void newLesson(@RequestBody Lessons lessons){
+        this.lessonsRepository.save(lessons);
     }
 
 }
