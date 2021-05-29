@@ -72,8 +72,23 @@ public class LessonsTest {
 
         this.mvc.perform(request)
                 .andExpect(status().isOk());
-               // .andExpect(jsonPath("$.title",is ("Java spring")))
-             //   .andExpect(jsonPath("$.id",instanceOf(Number.class)));
-
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void updateLessonsByID() throws Exception{
+        Lessons lessons =new Lessons();
+        lessons.setTitle("Java spring");
+        this.lessonsRepository.save(lessons);
+
+        MockHttpServletRequestBuilder request=patch("/lessons/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\": \"Java spring Boot\"}");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is("Java spring Boot")));
+    }
+
 }

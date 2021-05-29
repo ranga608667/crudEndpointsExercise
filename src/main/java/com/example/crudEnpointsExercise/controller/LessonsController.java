@@ -29,4 +29,11 @@ public class LessonsController {
         this.lessonsRepository.save(lessons);
     }
 
+    @PatchMapping("/lessons/{id}")
+    public Optional<Lessons> updateById(@RequestBody Lessons lessons, @PathVariable int id){
+        Lessons lessonsInput = this.lessonsRepository.findById(id).get();
+        lessonsInput.setTitle(lessons.getTitle());
+         this.lessonsRepository.save(lessonsInput);
+         return this.lessonsRepository.findById(id);
+    }
 }
